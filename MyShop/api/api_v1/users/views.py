@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import db_helper
-from core.schemas.user import UserRead, UserCreate
-from crud import users as users_crud
+from .schemas import UserRead, UserCreate
+from . import crud as users_crud
 
 router = APIRouter(tags=["Users"])
 
@@ -15,7 +15,7 @@ async def get_users(
     session: Annotated[
         AsyncSession,
         Depends(db_helper.session_getter),
-    ],
+    ]
 ):
     users = await users_crud.get_all_users(session=session)
     return users

@@ -4,11 +4,11 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models.user import User
-from core.schemas.user import UserCreate
+from api.api_v1.users.schemas import UserCreate
 
 
 async def get_all_users(
-        session: AsyncSession,
+    session: AsyncSession,
 ) -> Sequence[User]:
     stmt = select(User).order_by(User.id)
     result = await session.scalars(stmt)
@@ -16,8 +16,8 @@ async def get_all_users(
 
 
 async def create_user(
-        session: AsyncSession,
-        user_create: UserCreate,
+    session: AsyncSession,
+    user_create: UserCreate,
 ) -> User:
     user = User(**user_create.model_dump())
     session.add(user)
