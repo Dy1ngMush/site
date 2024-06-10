@@ -38,4 +38,27 @@ async def create_user(
         session=session,
         user_create=user_create,
     )
-    return user
+
+
+@router.patch("/{user_id}", response_model=UserRead)
+async def update_user_partial(
+    user_update_partial: UserUpdatePartial,
+    user: User = Depends(user_by_id),
+    session: AsyncSession = Depends(db_helper.session_getter),
+):
+    return await crud.update_user(
+        session=session,
+        user=user,
+        user_update=user_update_partial,
+    )
+
+
+@router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_user(
+    user: User = Depends(user_by_id),
+    session: AsyncSession = Depends(db_helper.session_getter),
+) -> None:
+    await crud.delete_user(
+        session=session,
+        user=user,
+    )
