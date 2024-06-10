@@ -20,6 +20,11 @@ async def get_users(
     users = await users_crud.get_all_users(session=session)
     return users
 
+@router.get("/{user_id}", response_model=UserRead)
+async def get_user(
+    user: UserRead = Depends(user_by_id),
+):
+    return user
 
 @router.post("", response_model=UserRead)
 async def create_user(
