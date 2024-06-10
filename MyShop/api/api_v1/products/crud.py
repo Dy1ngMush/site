@@ -6,7 +6,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.api_v1.products.schemas import (
     ProductCreate,
-    ProductUpdate,
     ProductUpdatePartial,
 )
 from core.models import Product
@@ -34,10 +33,9 @@ async def create_product(session: AsyncSession, product_in: ProductCreate) -> Pr
 async def update_product(
     session: AsyncSession,
     product: Product,
-    product_update: ProductUpdate | ProductUpdatePartial,
-    partial: bool = False,
+    product_update: ProductUpdatePartial,
 ) -> Product:
-    for name, value in product_update.model_dump(exclude_unset=partial).items():
+    for name, value in product_update.model_dump().items():
         setattr(product, name, value)
     await session.commit()
     return product

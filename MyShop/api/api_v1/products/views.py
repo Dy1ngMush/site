@@ -1,7 +1,6 @@
 from typing import Annotated
-from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, status, Depends
 from .dependencies import product_by_id
 from core.models import db_helper, Product
 from . import crud
@@ -18,11 +17,7 @@ async def get_products(
     return await crud.get_products(session=session)
 
 
-@router.post(
-    "",
-    response_model=ProductRead,
-    status_code=status.HTTP_201_CREATED,
-)
+@router.post("", response_model=ProductRead, status_code=status.HTTP_201_CREATED)
 async def create_product(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
     product_in: ProductCreate,
@@ -37,19 +32,6 @@ async def get_product(
     return product
 
 
-@router.put("/{product_id}", response_model=ProductRead)
-async def update_product(
-    product_update: ProductUpdate,
-    product: Product = Depends(product_by_id),
-    session: AsyncSession = Depends(db_helper.session_getter),
-):
-    return await crud.update_product(
-        session=session,
-        product=product,
-        product_update=product_update,
-    )
-
-
 @router.patch("/{product_id}", response_model=ProductRead)
 async def update_product_partial(
     product_update_partial: ProductUpdatePartial,
@@ -60,7 +42,6 @@ async def update_product_partial(
         session=session,
         product=product,
         product_update=product_update_partial,
-        partial=True,
     )
 
 

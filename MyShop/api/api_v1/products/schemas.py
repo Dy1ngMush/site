@@ -7,6 +7,7 @@ class ProductBase(BaseModel):
     name: str
     description: str
     price: int
+    quantity: int
 
 
 class ProductCreate(ProductBase):
@@ -21,6 +22,7 @@ class ProductUpdatePartial(ProductCreate):
     name: str | None = None
     description: str | None = None
     price: int | None = None
+    quantity: int | None = None
 
 
 class ProductRead(ProductBase):
