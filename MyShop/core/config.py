@@ -12,6 +12,10 @@ class ApiV1Prefix(BaseModel):
     prefix: str = "/v1"
     users: str = "/users"
     products: str = "/products"
+    profiles: str = "/profiles"
+    tokens: str = "/tokens"
+    demo_auth: str = "/demo_auth"
+    demo_jwt_auth: str = "/demo_jwt_auth"
 
 
 class ApiPrefix(BaseModel):
