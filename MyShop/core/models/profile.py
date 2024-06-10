@@ -5,7 +5,7 @@ from .base import Base
 
 
 class Profile(UserRelationMixin, Base):
-    _user_id_unique = False
+    _user_id_unique = True
     _user_back_populates = "profile"
 
     first_name: Mapped[str] = mapped_column(String(40))
