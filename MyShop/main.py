@@ -15,6 +15,7 @@ async def lifespan(app: FastAPI):
 
 
 main_app = FastAPI(
+    title='Магазин "ТО ЧТО НАДО"',
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
 )
