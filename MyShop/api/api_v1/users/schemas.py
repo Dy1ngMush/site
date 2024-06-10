@@ -1,14 +1,25 @@
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class UserBase(BaseModel):
     username: str
+    email: EmailStr
 
 
 class UserCreate(UserBase):
-    pass
+    password: bytes
+    active: bool = True
+
+
+class UserToken(UserCreate):
+    id: UUID
+
+
+class UserUpdatePartial(UserCreate):
+    username: str | None = None
+    email: str | None = None
 
 
 class UserRead(UserBase):
