@@ -20,7 +20,13 @@ class UserToken(UserCreate):
 class UserUpdatePartial(UserCreate):
     username: str | None = None
     email: str | None = None
+    password: bytes | None = None
 
 
 class UserRead(UserBase):
     id: UUID
+
+
+class UserSchema(BaseModel):
+    model_config = ConfigDict(strict=True)
+    username: str = None
