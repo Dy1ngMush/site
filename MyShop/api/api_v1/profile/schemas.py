@@ -21,6 +21,7 @@ class ProfileUpdatePartial(ProfileCreate):
     first_name: str | None = None
     last_name: str | None = None
     bio: str | None = None
+    user_id: UUID | None = None
 
 
 class ProfileRead(ProfileBase):
