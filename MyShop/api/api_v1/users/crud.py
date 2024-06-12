@@ -39,10 +39,7 @@ async def get_user(
     session: AsyncSession,
     user_id: UUID,
 ) -> User | None:
-    return await session.get(
-        User,
-        user_id,
-    )
+    return await session.scalar(select(User).where(User.id == user_id))
 
 
 async def update_user(
