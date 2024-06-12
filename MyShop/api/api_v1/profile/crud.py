@@ -1,10 +1,11 @@
+from typing import Any
 from uuid import UUID
 
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.api_v1.profile.schemas import ProfileCreate, ProfileRead
+from api.api_v1.profile.schemas import ProfileCreate, ProfileRead, ProfileUpdatePartial
 from core.models import Profile, User
 
 
@@ -23,10 +24,7 @@ async def get_profile(
     session: AsyncSession,
     user_id: UUID,
 ) -> Profile | None:
-    return await session.get(
-        Profile,
-        user_id,
-    )
+    return await session.scalar(select(Profile).where(Profile.user_id == user_id))
 
 
 async def delete_profile(
