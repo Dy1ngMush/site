@@ -6,6 +6,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from auth.utils import hash_password
+from core.models import Token
 from core.models.user import User
 from api.api_v1.users.schemas import UserCreate, UserUpdatePartial
 
@@ -56,6 +57,8 @@ async def update_user(
 async def delete_user(
     session: AsyncSession,
     user: User,
+    token: Token,
 ) -> None:
+    await session.delete(token)
     await session.delete(user)
     await session.commit()
