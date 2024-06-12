@@ -30,9 +30,11 @@ async def create_profile(
 
 @router.get("", response_model=ProfileRead)
 async def get_profile(
-    profile: Profile = Depends(profile_by_id),
+    access_token: Annotated[str, Depends(apikey_scheme)],
+    session: AsyncSession = Depends(db_helper.session_getter),
 ):
-    return profile
+    user_id = decode_jwt(access_token)["sub"]
+    return await crud.get_profile(session=session, user_id=user_id)
 
 
 @router.delete("", status_code=status.HTTP_204_NO_CONTENT)
