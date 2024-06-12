@@ -1,5 +1,5 @@
-from typing import Annotated
 from typing import Annotated, Any
+from uuid import UUID
 
 from fastapi import APIRouter, status, Depends, HTTPException
 from sqlalchemy import select
@@ -45,6 +45,14 @@ async def delete_profile(
         session=session,
         profile=profile,
     )
+
+
+@router.get("/{profile_id}", response_model=ProfileRead)
+async def get_profile_by_id(
+    profile: Profile = Depends(profile_by_profile_id),
+):
+    return profile
+
 
 @router.patch("/{profile_id}", response_model=ProfileRead)
 async def update_user_partial(
