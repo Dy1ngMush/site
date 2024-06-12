@@ -39,6 +39,13 @@ async def get_token(
     return await session.get(Token, token_id)
 
 
+async def get_token_by_user_id(
+    session: AsyncSession,
+    user_id: UUID,
+) -> Token | None:
+    return await session.scalar(select(Token).where(Token.user_id == user_id))
+
+
 async def delete_token(session: AsyncSession, token: Token) -> None:
     await session.delete(token)
     await session.commit()
