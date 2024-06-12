@@ -33,3 +33,21 @@ async def delete_profile(
 ) -> None:
     await session.delete(profile)
     await session.commit()
+
+
+async def get_profile_by_user_id(
+    session: AsyncSession,
+    profile_id: UUID,
+) -> Profile | None:
+    return await session.scalar(select(Profile).where(Profile.id == profile_id))
+
+
+async def update_profile(
+    session: AsyncSession,
+    profile: Profile,
+    profile_update: ProfileUpdatePartial,
+) -> Profile:
+    for name, value in profile_update.model_dump(exclude_unset=True).items():
+        setattr(profile, name, value)
+    await session.commit()
+    return profile
