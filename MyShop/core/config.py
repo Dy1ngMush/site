@@ -19,6 +19,7 @@ class ApiV1Prefix(BaseModel):
     products: str = "/products"
     profiles: str = "/profiles"
     tokens: str = "/tokens"
+    orders: str = "/orders"
     demo_auth: str = "/demo_auth"
     demo_jwt_auth: str = "/demo_jwt_auth"
 
