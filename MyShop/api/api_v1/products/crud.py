@@ -35,7 +35,7 @@ async def update_product(
     product: Product,
     product_update: ProductUpdatePartial,
 ) -> Product:
-    for name, value in product_update.model_dump().items():
+    for name, value in product_update.model_dump(exclude_unset=True).items():
         setattr(product, name, value)
     await session.commit()
     return product
