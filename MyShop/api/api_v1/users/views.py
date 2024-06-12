@@ -1,12 +1,15 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from auth.utils import decode_jwt
 from core.models import db_helper, User
+from secure import apikey_scheme
 from .schemas import UserRead, UserCreate, UserUpdatePartial
 from .dependencies import user_by_id
 from . import crud
+from api.api_v1.tokens.crud import get_token_by_user_id
 
 router = APIRouter(tags=["Users"])
 
@@ -51,10 +54,11 @@ async def update_user_partial(
 
 @router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user(
-    user: User = Depends(user_by_id),
+    access_token: Annotated[str, Depends(apikey_scheme)],
     session: AsyncSession = Depends(db_helper.session_getter),
 ) -> None:
-    await crud.delete_user(
-        session=session,
-        user=user,
-    )
+    access_tokenz = decode_jwt(access_token)["sub"]
+    user = await crud.get_user(session=session, user_id=access_tokenz)
+    token = await get_token_by_user_id(session=session, user_id=access_tokenz)
+    if str(user.id) == str(access_tokenz):
+        await crud.delete_user(session=session, user=user, token=token)
