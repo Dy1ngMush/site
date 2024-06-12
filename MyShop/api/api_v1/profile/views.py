@@ -38,13 +38,15 @@ async def get_profile(
 @router.delete("", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_profile(
     access_token: Annotated[str, Depends(apikey_scheme)],
-    profile: Profile = Depends(profile_by_id),
     session: AsyncSession = Depends(db_helper.session_getter),
 ) -> None:
-    await crud.delete_profile(
-        session=session,
-        profile=profile,
-    )
+    access_tokenz = decode_jwt(access_token)["sub"]
+    profile = await crud.get_profile(session=session, user_id=access_tokenz)
+    if str(profile.user_id) == str(access_tokenz):
+        await crud.delete_profile(
+            session=session,
+            profile=profile,
+        )
 
 
 @router.get("/{profile_id}", response_model=ProfileRead)
