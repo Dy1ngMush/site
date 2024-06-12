@@ -41,10 +41,12 @@ async def create_user(
 
 @router.patch("/{user_id}", response_model=UserRead)
 async def update_user_partial(
+    access_token: Annotated[str, Depends(apikey_scheme)],
     user_update_partial: UserUpdatePartial,
-    user: User = Depends(user_by_id),
     session: AsyncSession = Depends(db_helper.session_getter),
 ):
+    access_token = decode_jwt(access_token)["sub"]
+    user = await crud.get_user(session=session, user_id=access_token)
     return await crud.update_user(
         session=session,
         user=user,
