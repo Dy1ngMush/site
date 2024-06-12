@@ -1,14 +1,17 @@
 from typing import Annotated
+from typing import Annotated, Any
 
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, status, Depends, HTTPException
+from sqlalchemy import select
 
 from auth.utils import decode_jwt
-from core.models import db_helper, Profile
+from core.models import db_helper, Profile, User
 from secure import apikey_scheme
 from . import crud
+from api.api_v1.users import crud as crud_user
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .dependencies import profile_by_id
+from .dependencies import profile_by_id, profile_by_profile_id
 from .schemas import ProfileCreate, ProfileRead, ProfileUpdate, ProfileUpdatePartial
 
 router = APIRouter(tags=["Profiles"])
@@ -41,4 +44,18 @@ async def delete_profile(
     await crud.delete_profile(
         session=session,
         profile=profile,
+    )
+
+@router.patch("/{profile_id}", response_model=ProfileRead)
+async def update_user_partial(
+    access_token: Annotated[str, Depends(apikey_scheme)],
+    profile_update_partial: ProfileUpdatePartial,
+    session: AsyncSession = Depends(db_helper.session_getter),
+):
+    access_token = decode_jwt(access_token)["sub"]
+    profile = await crud.get_profile(session=session, user_id=access_token)
+    return await crud.update_profile(
+        session=session,
+        profile=profile,
+        profile_update=profile_update_partial,
     )
