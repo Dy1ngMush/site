@@ -58,8 +58,8 @@ async def get_profile_by_id(
     return profile
 
 
-@router.patch("/{profile_id}", response_model=ProfileRead)
-async def update_user_partial(
+@router.patch("/", response_model=ProfileRead)
+async def update_profile_partial(
     access_token: Annotated[str, Depends(apikey_scheme)],
     profile_update_partial: ProfileUpdatePartial,
     session: AsyncSession = Depends(db_helper.session_getter),
