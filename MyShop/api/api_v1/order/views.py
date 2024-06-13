@@ -32,8 +32,8 @@ async def get_cart(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
 ):
     access_token = decode_jwt(access_token)["sub"]
-    return await crud.get_orders_with_products_assoc(
-        session=session, user_id=access_token
+    return await crud.get_order_with_products_assoc(
+        session=session, access_token=access_token
     )
 
 
