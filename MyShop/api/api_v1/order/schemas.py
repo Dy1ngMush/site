@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 
 class OrderBase(BaseModel):
-    promocode: str
     user_id: UUID
 
 
