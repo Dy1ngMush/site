@@ -5,7 +5,9 @@ __all__ = ("db_helper",
            "Profile",
            "Token",
            "Order",
-           "OrderProductAssociation"
+           "TrueOrder",
+           "OrderProductAssociation",
+           "TrueOrderProductAssociation",
            )
 
 from .db_helper import db_helper
@@ -15,4 +17,6 @@ from .product import Product
 from .profile import Profile
 from .token import Token
 from .order import Order
+from .trueorder import TrueOrder
 from .order_product_association import OrderProductAssociation
+from .trueorder_product_association import TrueOrderProductAssociation
