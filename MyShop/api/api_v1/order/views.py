@@ -1,30 +1,22 @@
-from typing import Annotated, List
+from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, status, Depends, Path
-from sqlalchemy import select
-from sqlalchemy.orm import selectinload
 
 from auth.utils import decode_jwt
-from core.models import OrderProductAssociation, Product
-from core.models import db_helper, Order
+
+from core.models import db_helper
 from secure import apikey_scheme
 from . import crud
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .dependencies import (
-    order_by_id,
-    order_product_associations_by_id,
-    order_one_product_associations_by_id,
-)
-from .schemas import OrderBase, OrderRead, OrderCreate
-from ..products.schemas import ProductRead
+from .schemas import OrderRead, OrderCreate
 
-router = APIRouter(tags=["Orders"])
+router = APIRouter(tags=["Carts"])
 
 
 @router.post("", response_model=OrderRead, status_code=status.HTTP_201_CREATED)
-async def create_order(
+async def create_cart(
     access_token: Annotated[str, Depends(apikey_scheme)],
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
     order_in: OrderCreate,
@@ -34,8 +26,8 @@ async def create_order(
     return await crud.create_order(session=session, order_in=order_in)
 
 
-@router.get("", response_model=List[OrderRead])
-async def get_user_orders(
+@router.get("", response_model=None)
+async def get_cart(
     access_token: Annotated[str, Depends(apikey_scheme)],
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
 ):
@@ -45,74 +37,52 @@ async def get_user_orders(
     )
 
 
-@router.get("/{order_id}", response_model=None)
-async def get_order(
+@router.post("/add_product", response_model=OrderRead)
+async def add_product_to_cart(
+    access_token: Annotated[str, Depends(apikey_scheme)],
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-    order: Annotated[UUID, Path],
-):
-    return await crud.get_order_with_products_assoc(session=session, order_id=order)
-
-
-@router.post("/add_product/{order_id}", response_model=OrderRead)
-async def add_product(
-    session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-    order: Annotated[UUID, Path],
     product_id: Annotated[UUID, Path],
     quantity: int,
 ):
+    access_token = decode_jwt(access_token)["sub"]
     return await crud.add_product_to_order(
         session=session,
-        order_id=order,
+        access_token=access_token,
         product_id=product_id,
         quantity=quantity,
     )
 
 
-@router.delete("/delete_all_products/{order_id}", response_model=None)
-async def delete_all_products(
+@router.delete("/delete_all_products", response_model=None)
+async def delete_all_products_in_cart(
+    access_token: Annotated[str, Depends(apikey_scheme)],
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-    order_product_associations: list[OrderProductAssociation] = Depends(
-        order_product_associations_by_id
-    ),
 ):
+    access_token = decode_jwt(access_token)["sub"]
     await crud.delete_all_products_product_association(
-        session=session, order_product_association=order_product_associations
+        session=session,
+        access_token=access_token,
     )
 
 
-@router.delete("/delete_one_product/{order_id}", response_model=None)
-async def delete_one_product(
+@router.delete("/delete_one_product/{product_id}", response_model=None)
+async def delete_one_product_in_cart(
+    access_token: Annotated[str, Depends(apikey_scheme)],
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-    order_product_associations: OrderProductAssociation = Depends(
-        order_one_product_associations_by_id
-    ),
+    product_id: Annotated[UUID, Path],
 ):
+    access_token = decode_jwt(access_token)["sub"]
     await crud.delete_one_product_product_association(
-        session=session, order_product_association=order_product_associations
+        session=session,
+        access_token=access_token,
+        product_id=product_id,
     )
 
 
-@router.delete("/delete_order/{order_id}", response_model=None)
-async def delete_order(
+@router.delete("/delete_cart", response_model=None)
+async def delete_cart(
+    access_token: Annotated[str, Depends(apikey_scheme)],
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-    order: Order = Depends(order_by_id),
 ):
-    return await crud.delete_order(session=session, order=order)
-
-
-#    return await crud.get_order(session=session, order_id=order)
-
-
-# orders = await crud.get_orders_with_products_assoc(session=session)
-# for order in orders:
-#     print(order.id, order.promocode, "products:")
-#     for (
-#         order_product_details
-#     ) in order.products_details:  # type: OrderProductAssociation
-#         print(
-#             "-",
-#             order_product_details.product.name,
-#             order_product_details.product.price,
-#             "quantity:",
-#             order_product_details.quantity,
-#         )
+    access_token = decode_jwt(access_token)["sub"]
+    return await crud.delete_order(session=session, access_token=access_token)

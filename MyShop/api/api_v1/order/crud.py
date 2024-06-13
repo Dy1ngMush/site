@@ -8,10 +8,15 @@ from sqlalchemy.orm import selectinload
 
 from api.api_v1.order.schemas import OrderCreate
 from api.api_v1.products.crud import get_product
-from core.models import OrderProductAssociation, Order, Product
+from core.models import OrderProductAssociation, Order, User
 
 
-async def get_order_with_products_assoc(session: AsyncSession, order_id: UUID) -> Order:
+async def get_order_with_products_assoc(
+    session: AsyncSession,
+    access_token=UUID,
+) -> Order:
+    user = select(User).where(User.id == access_token).options(selectinload(User.order))
+    user = await session.scalar(user)
     stmt = (
         select(Order)
         .options(
@@ -19,7 +24,7 @@ async def get_order_with_products_assoc(session: AsyncSession, order_id: UUID) -
                 OrderProductAssociation.product
             ),
         )
-        .where(Order.id == order_id)
+        .where(Order.id == user.order.id)
     )
     order = await session.scalar(stmt)
     return order
@@ -70,13 +75,15 @@ async def create_order(
 
 async def add_product_to_order(
     session: AsyncSession,
-    order_id: UUID,
+    access_token: UUID,
     product_id: UUID,
     quantity: int,
 ) -> Order:
+    user = select(User).where(User.id == access_token).options(selectinload(User.order))
+    user = await session.scalar(user)
     order = await session.scalar(
         select(Order)
-        .where(Order.id == order_id)
+        .where(Order.id == user.order.id)
         .options(
             selectinload(Order.products_details).joinedload(
                 OrderProductAssociation.product
@@ -124,24 +131,45 @@ async def get_order_one_product_associations(
 
 async def delete_order(
     session: AsyncSession,
-    order: Order,
+    access_token: UUID,
 ) -> None:
+    user = select(User).where(User.id == access_token).options(selectinload(User.order))
+    user = await session.scalar(user)
+    order = select(Order).where(Order.id == user.order.id)
+    order = await session.scalar(order)
     await session.delete(order)
     await session.commit()
 
 
 async def delete_all_products_product_association(
-    session: AsyncSession,
-    order_product_association: list[OrderProductAssociation],
+    session: AsyncSession, access_token: UUID
 ) -> None:
-    for order_product_association in order_product_association:
+    user = select(User).where(User.id == access_token).options(selectinload(User.order))
+    user = await session.scalar(user)
+    stmt = (
+        select(OrderProductAssociation)
+        .where(
+            OrderProductAssociation.order_id == user.order.id,
+        )
+        .order_by(OrderProductAssociation.id)
+    )
+    order_product_associations = list(await session.scalars(stmt))
+    for order_product_association in order_product_associations:
         await session.delete(order_product_association)
     await session.commit()
 
 
 async def delete_one_product_product_association(
     session: AsyncSession,
-    order_product_association: OrderProductAssociation,
+    access_token: UUID,
+    product_id: UUID,
 ) -> None:
+    user = select(User).where(User.id == access_token).options(selectinload(User.order))
+    user = await session.scalar(user)
+    stmt = select(OrderProductAssociation).where(
+        OrderProductAssociation.product_id == product_id,
+        OrderProductAssociation.order_id == user.order.id,
+    )
+    order_product_association = await session.scalar(stmt)
     await session.delete(order_product_association)
     await session.commit()
