@@ -11,7 +11,7 @@ router = APIRouter(tags=["Products"])
 
 
 @router.get("", response_model=list[ProductRead])
-async def get_products(
+async def get_all_products(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
 ):
     return await crud.get_products(session=session)
@@ -26,7 +26,7 @@ async def create_product(
 
 
 @router.get("/{product_id}", response_model=ProductRead)
-async def get_product(
+async def get_product_by_id(
     product: ProductRead = Depends(product_by_id),
 ):
     return product
@@ -46,7 +46,7 @@ async def update_product_partial(
 
 
 @router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_product(
+async def delete_product_by_id(
     product: Product = Depends(product_by_id),
     session: AsyncSession = Depends(db_helper.session_getter),
 ) -> None:
