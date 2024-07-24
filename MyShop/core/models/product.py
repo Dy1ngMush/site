@@ -14,6 +14,9 @@ class Product(Base):
     description: Mapped[str]
     price: Mapped[int]
     quantity: Mapped[int]
+    shortname: Mapped[str]
+    type: Mapped[str]
+    battery: Mapped[str]
 
     orders_details: Mapped[list["OrderProductAssociation"]] = relationship(
         back_populates="product",
