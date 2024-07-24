@@ -36,7 +36,7 @@ main_app.add_middleware(
     allow_headers=["*"],
 )
 
-templates = Jinja2Templates(directory='pages')
+templates = Jinja2Templates(directory='templates')
 main_app.mount('/static/', StaticFiles(directory='pages/static'), name='pages/static')
 main_app.mount('/js/', StaticFiles(directory='pages/js'), name='pages/js')
 main_app.mount('/CSS/', StaticFiles(directory='pages/css'), name='pages/css')
