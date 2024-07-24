@@ -15,14 +15,14 @@ router = APIRouter(tags=["Users"])
 
 
 @router.get("", response_model=list[UserRead])
-async def get_users(
+async def get_all_users(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)]
 ):
     return await crud.get_all_users(session=session)
 
 
 @router.get("/{user_id}", response_model=UserRead)
-async def get_user(
+async def get_user_by_id(
     user: UserRead = Depends(user_by_id),
 ):
     return user
