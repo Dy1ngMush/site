@@ -30,6 +30,7 @@ def create_access_token(user: User) -> str:
         "sub": str(user.id),
         "username": user.username,
         "email": user.email,
+        "role": user.role,
     }
     return create_jwt(
         token_type=ACCESS_TOKEN_TYPE,
