@@ -27,6 +27,15 @@ main_app = FastAPI(
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
 )
+
+main_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 templates = Jinja2Templates(directory='pages')
 main_app.mount('/static/', StaticFiles(directory='pages/static'), name='pages/static')
 main_app.mount('/js/', StaticFiles(directory='pages/js'), name='pages/js')
