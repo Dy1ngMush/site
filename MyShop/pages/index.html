@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Магазин ТОЧТОНАДО</title>
+    <link rel="stylesheet" href="/CSS/normalize.css">
+    <link rel="stylesheet" href="/CSS/main.css">
+    <link rel="stylesheet" href="/CSS/styles.css">
+    <link rel="stylesheet" href="/CSS/preloader.css">
+    <link rel="stylesheet" href="/CSS/index.css">
+</head>
+<body>
+    <div class="preloader">
+        <div class="preloader_content">
+            <div class="preloader_first"></div>
+            <div class="preloader_second"></div>
+            <div class="preloader_third"></div>
+        </div>
+    </div>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/preloader.js"></script>
+<header>
+    <nav class="navigation">
+        <div class="logo">
+            <svg fill="#111312" width="100px" height="100px" viewBox="-8.1 -8.1 46.20 46.20" xmlns="http://www.w3.org/2000/svg" stroke="#111312" stroke-width="0.00030000000000000003" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(6,6), scale(0.6)"><rect x="-8.1" y="-8.1" width="46.20" height="46.20" rx="23.1" fill="#FFFF00" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#ff0000" stroke-width="0.06"></g><g id="SVGRepo_iconCarrier"><path d="M19.5 10c.277 0 .5.223.5.5v3c0 .277-.223.5-.5.5s-.5-.223-.5-.5v-3c0-.277.223-.5.5-.5zm-9 0c.277 0 .5.223.5.5v3c0 .277-.223.5-.5.5s-.5-.223-.5-.5v-3c0-.277.223-.5.5-.5zm-1 10c-.507 0-.653.614-.315.888C10.803 22.243 12.89 23 15 23c2.11 0 4.203-.758 5.82-2.112.484-.404-.15-1.18-.64-.767-1.434 1.2-3.307 1.88-5.176 1.88-1.87 0-3.744-.68-5.176-1.88-.09-.076-.21-.12-.328-.12zM15 0C6.722 0 0 6.722 0 15c0 8.278 6.722 15 15 15 8.278 0 15-6.722 15-15 0-8.278-6.722-15-15-15zm0 1c7.738 0 14 6.262 14 14s-6.262 14-14 14S1 22.738 1 15 7.262 1 15 1z"></path></g>
+            <text fill="white", y="36px", font-size="7px", font-weight="700" x="-6">ТОЧТОНАДО</text>
+            </svg>
+        </div>
+        <ul class="main">
+            <li><a class="header-link" href="/products">Товары</a></li>
+            <li><a class="header-link" href="/cart">Корзина</a></li>
+        </ul>
+        <ul class="user">
+            <li class="button"><a class="header-link" id="open_pop_up_signup" href="#">Регистрация</a></li>
+            <li class="button"><a class="header-link" id="open_pop_up_signin" href="#">Вход</a></li>
+        </ul>
+        <div class="mini-div-for-theme"><input type="checkbox" id="theme" class="theme"><label class="theme-label" for="theme"></label></div>
+    </nav>
+
+</header>
+
+<main class="123">
+<div class="pop_up" id="pop_up_signup">
+    <div class="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body">
+            <p>Регистрация</p>
+            <form id="signup-form">
+                <input id='su_login' type="text" name='username' placeholder="Логин" required>
+                <input id="su_email" type="email" ".+@example\.com" name='email' placeholder="Email" required>
+                <input id="su_password" type="password" name='password' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required placeholder="Пароль">
+                <input id="su_password2" type="text" name='password2' placeholder="Подтвердите пароль" required>
+                <div class="error signup hide hide hide hide">
+                    Пароли не совпадают
+                </div>
+                <button type="sumbit">Регистрация</button>
+            </form>
+            <div class="pop_up_close" id="pop_up_close_signup">
+                &#10006
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pop_up" id="pop_up_signin">
+    <div class="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body">
+            <p>Вход</p>
+            <form>
+                <input id='login' type="text" placeholder="Логин">
+                <input id="password" type="text" placeholder="Пароль">
+                <button>Войти</button>
+            </form>
+            <div class="pop_up_close" id="pop_up_close_signin">
+                &#10006
+            </div>
+        </div>
+    </div>
+</div>
+    <section class="grid-of-goods">
+        <article class="good">
+            <img class="img-good"src="/static/r600.png" height="268px">
+            <a href="/product/r600" class="nazv-good">Портативная электростанция R600</a>
+            <p class="text-good"><b>Батарея:</b> LifePO4<br><b>Ёмкость:</b> 299Wh<br><b>Размер:</b> 29х19х19см</p>
+        </article>
+        <div class="good">
+            <img class="img-good"src="/static/s300.png" height="268px">
+            <a href="/product/s300" class="nazv-good">Портативная электростанция S300</a>
+            <p class="text-good"><b>Батарея:</b> Lithium-ion<br><b>Ёмкость:</b> 288Wh<br><b>Размер:</b> 20.6х16.5х11см</p>
+        </div>
+        <div class="good">
+            <img class="img-good"src="/static/s200.png" height="268px">
+            <a href="/product/s200" class="nazv-good">Портативная электростанция S200</a>
+            <p class="text-good3"><b>Батарея:</b> Lithium-ion<br><b>Ёмкость:</b> 154Wh<br><b>Размер:</b> 20х17х5см</p>
+        </div>
+        <div class="good">
+            <img class="img-good"src="/static/r1500.png" height="268px">
+            <a href="/product/r1500" class="nazv-good">Портативная электростанция R1500</a>
+            <p class="text-good"><b>Батарея:</b> LifePO4<br><b>Ёмкость:</b> 1152Wh<br><b>Размер:</b> 41х31х26.5см</p>
+        </div>
+        <div class="good">
+            <img class="img-good extra"src="/static/140W.png" height="268px">
+            <a href="/product/140w" class="nazv-good">Солнечная Панель 140W</a>
+            <p class="text-good"><b>Размер:</b> 8.5х5.6х0.07см</p>
+        </div>
+    </section>
+    <section class="about-page">
+        <h1 class="about-us">О нас</h1>
+        <div class="about-us-text">Мы онлайн-магазин "ТОЧТОНАДО". Специализируемся на продаже и доставке в целостности различных товаров, преимущественно от бренда Allpowers, предоставляя выгодные цены, хорошее обслуживание и качественные консультации по любым вопросам, относящимся к продаваемой продукции. Множество положительных отзывов уже имеется о нашей работе и товарах. Работаем с 2022 года и не собираемся на этом останавливаться.</div>
+    </section>
+    <h1 class="review-head">Наши отзывы</h1>
+    <div class="reviews">
+            <div class="review">
+                <img class="user-logo" src="../static/user.png" height="100">
+                <p class="user-name">Мария</p>
+                <p class="user-stars">★★★★★</p>
+                <p class="user-text">Регулярно покупаю здесь станции, помогут советом, расскажут что да как, одним словом МОЛОДЦЫ!</p>
+            </div>
+            <div class="review">
+                <img class="user-logo" src="../static/user.png" height="100">
+                <p class="user-name">Александр</p>
+                <p class="user-stars">★★★★★</p>
+                <p class="user-text">Купил себе и сыну две станции S300. С одной из них через время начались проблемы, но "ТОЧТОНАДО" быстро заменил на новую</p>
+            </div>
+
+            <div class="review">
+                <img class="user-logo" src="../static/user.png" height="100">
+                <p class="user-name">Антон</p>
+                <p class="user-stars">★★★★★</p>
+                <p class="user-text">Прекрасный магазин, попробовал один раз и уже вновь хочется вернуться. Отличный сервис и ответы быстрые</p>
+            </div>
+            <div class="review">
+                <img class="user-logo" src="../static/user.png" height="100">
+                <p class="user-name">Юлия</p>
+                <p class="user-stars">★★★★★</p>
+                <p class="user-text">Приобретала на отдых себе солнечную панель 140W и станцию R600. Моё лучшее приобретение за последние годы</p>
+            </div>
+            <div class="review">
+                <img class="user-logo" src="../static/user.png" height="100">
+                <p class="user-name">Тимур</p>
+                <p class="user-stars">★★★★★</p>
+                <p class="user-text">Покупал станцию R1500, мне она понравилась на все 100! Всем советую купить такую же</p>
+            </div>
+        </div>
+</main>
+
+<footer>
+    <div class="footer-menu">
+        <div>
+            <a class="footer-link" href="#">Солнечные панели</a>
+            <div class="panels">
+            <a class="footer-link panel" href="/product/200w">200W</a>
+            <a class="footer-link panel" href="/product/140w">140W</a>
+            </div>
+        </div>
+
+        <div>
+            <a class="footer-link" href="#">Портативные станции</a>
+            <div class="stations">
+                <a class="footer-link panel" href="/product/s2000-pro">S2000 PRO</a>
+                <a class="footer-link station" href="/product/r1500">R1500</a>
+                <a class="footer-link station" href="/product/r600">R600</a>
+                <a class="footer-link panel" href="/product/s700">S700</a>
+                <a class="footer-link station" href="/product/s300">S300</a>
+                <a class="footer-link station" href="/product/s200">S200</a>
+            </div>
+        </div>
+
+        <div>
+            <a class="footer-link" href="#">Информация</a>
+            <div class="infos">
+                <a class="footer-link info" href="#">О компании</a>
+                <a class="footer-link info" href="#">Реквизиты</a>
+            </div>
+        </div>
+        <div>
+            <a class="footer-link" href="#">Контакты</a>
+            <div class="contants">
+                <a class="footer-link contact" href="#">Связь</a>
+            </div>
+        </div>
+    </div>
+    <div class="developer">
+        <p class="developer-text">Команда разработчиков:  Куликов Тимур</p>
+    </div>
+    <div class="super-footer">
+        <p class="footer-link">© 2024 ТОЧТОНАДО. Все права защищены.</p>
+        <a class="footer-link super" href="#">Контакты</a>
+        <a class="footer-link super" href="#">Политика конфиденциальности</a>
+    </div>
+</footer>
+<script src="/js/theme.js"></script>
+</body>
+</html>
