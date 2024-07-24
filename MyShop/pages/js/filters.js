@@ -28,11 +28,10 @@ function filterSearch(){
     let elasticItems = document.querySelectorAll('.query div.hidden');
     if (val != '') {
         elasticItems.forEach(function (elem) {
-            console.log(elem.innerText.search(val))
-            if (elem.innerText.search(val) == -1) {
+            if (elem.innerText.toLowerCase().search(val) == -1) {
                 elem.classList.add('hide');
             }
-            else {  
+            else {
                 elem.classList.remove('hide');
             }
         });
