@@ -31,6 +31,58 @@ templates = Jinja2Templates(directory='pages')
 main_app.mount('/static/', StaticFiles(directory='pages/static'), name='pages/static')
 main_app.mount('/js/', StaticFiles(directory='pages/js'), name='pages/js')
 main_app.mount('/CSS/', StaticFiles(directory='pages/css'), name='pages/css')
+
+
+@main_app.get('/')
+async def get(req: Request):
+    return templates.TemplateResponse('index.html', {"request": req})
+
+
+@main_app.get('/products')
+async def get(req: Request):
+    return templates.TemplateResponse('goods.html', {"request": req})
+
+
+@main_app.get('/product/140w')
+async def get(req: Request):
+    return templates.TemplateResponse('140w.html', {"request": req})
+
+
+@main_app.get('/product/r600')
+async def get(req: Request):
+    return templates.TemplateResponse('r600.html', {"request": req})
+
+
+@main_app.get('/product/r1500')
+async def get(req: Request):
+    return templates.TemplateResponse('r1500.html', {"request": req})
+
+
+@main_app.get('/product/s200')
+async def get(req: Request):
+    return templates.TemplateResponse('s200.html', {"request": req})
+
+
+@main_app.get('/product/s300')
+async def get(req: Request):
+    return templates.TemplateResponse('s300.html', {"request": req})
+
+
+@main_app.get('/product/s2000-pro')
+async def get(req: Request):
+    return templates.TemplateResponse('s2000pro.html', {"request": req})
+
+
+@main_app.get('/product/s700')
+async def get(req: Request):
+    return templates.TemplateResponse('s700.html', {"request": req})
+
+
+@main_app.get('/product/200w')
+async def get(req: Request):
+    return templates.TemplateResponse('200w.html', {"request": req})
+
+
 main_app.include_router(api_router)
 if __name__ == "__main__":
     uvicorn.run(
