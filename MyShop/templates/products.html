@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block link %}<li><a class="header-link" href="/">Главная</a></li>{% endblock %}
+{% block title %}Список товаров{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="/CSS/goods.css">
+{% endblock %}
+
+
+
+{% block content %}
+<div class="central-section">
+    <div class="search-head">
+        <form class="yes" id="form" role="search">
+            <input class="q1" type="search" id="query" name="q"
+             placeholder="Поиск по товарам"
+             aria-label="Search through site content"
+             autocomplete="off"
+             maxlength="255">
+          </form>
+    </div>
+
+    <div class="main-section">
+        <aside class="stick">
+            <div class="filters" id="filters">
+                <form id="type"><p class="filter-head">Тип товара</p>
+                    <label for="all">
+                        <input type="radio" checked id="all" name="filter-type" value="all"> Все<br>
+                    </label>
+                    <label for="station">
+                        <input type="radio" id="station" name="filter-type" value="station"> Электростанция<br>
+                    </label>
+                    <label for="panel">
+                        <input type="radio" id="panel" name="filter-type" value="panel"> Солнечная панель<br>
+                    </label>
+                </form>
+                <form class="type-of-battery hide" id="batter-filter" >
+                    <p class="price-head">Тип Батареи</p>
+                    <label for="allbattery">
+                        <input type="radio" id="allbattery" name="filter-battery" value="allbattery" checked> Все<br>
+                    </label>
+                    <label for="LifeP04">
+                        <input type="radio" id="LifeP04" name="filter-battery" value="life"> LifeP04<br>
+                    </label>
+                    <label for="Lithium-ion">
+                        <input type="radio" id="Lithium-ion" name="filter-battery" value="lith"> Lithium-ion<br>
+                    </label>
+                </form>
+                <p class="price-head">Цена</p>
+                <form class="priceminmax" id="price-filter">
+                    <label for="price-min">
+                        <input type="text" size="6" id="price-min"> —
+                    </label>
+                    <label for="price-max">
+                        <input type="text" size="6" id="price-max"> ₽
+                    </label>
+                </form>
+            </div>
+        </aside>
+        <div class="grid-of-goods query" id="grid-goods">
+            {% for product in products %}
+            <div class="good {{product.shortname}} hidden" id="{{product.type}}">
+                <img class="good-item" src="/static/{{product.shortname}}.png">
+                <div class="text-with-stars">
+                    <p class="stars">★★★★★</p>
+                    <a href="/product/{{product.shortname}}" class="good-text">{{product.name}}</a>
+                    <p class="price">{{product.price}}</p>
+                    {{product.name}} {{product.battery}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block footer %}
+<script src="/js/filters.js"></script>
+{% endblock %}

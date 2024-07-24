@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+
+{% block link %}<li><a class="header-link" href="/products">Товары</a></li>{% endblock %}
+{% block title %}ТОЧТОНАДО{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="/CSS/index.css">
+{% endblock %}
+
+
+
+
+{% block content %}
+<section class="grid-of-goods">
+    <article class="good">
+        <img class="img-good"src="/static/r600.png" height="268px">
+        <a href="/product/r600" class="nazv-good">Портативная электростанция R600</a>
+        <p class="text-good"><b>Батарея:</b> LifePO4<br><b>Ёмкость:</b> 299Wh<br><b>Размер:</b> 29х19х19см</p>
+    </article>
+    <div class="good">
+        <img class="img-good"src="/static/s300.png" height="268px">
+        <a href="/product/s300" class="nazv-good">Портативная электростанция S300</a>
+        <p class="text-good"><b>Батарея:</b> Lithium-ion<br><b>Ёмкость:</b> 288Wh<br><b>Размер:</b> 20.6х16.5х11см</p>
+    </div>
+    <div class="good">
+        <img class="img-good"src="/static/s200.png" height="268px">
+        <a href="/product/s200" class="nazv-good">Портативная электростанция S200</a>
+        <p class="text-good3"><b>Батарея:</b> Lithium-ion<br><b>Ёмкость:</b> 154Wh<br><b>Размер:</b> 20х17х5см</p>
+    </div>
+    <div class="good">
+        <img class="img-good"src="/static/r1500.png" height="268px">
+        <a href="/product/r1500" class="nazv-good">Портативная электростанция R1500</a>
+        <p class="text-good"><b>Батарея:</b> LifePO4<br><b>Ёмкость:</b> 1152Wh<br><b>Размер:</b> 41х31х26.5см</p>
+    </div>
+    <div class="good">
+        <img class="img-good extra"src="/static/140W.png" height="268px">
+        <a href="/product/140w" class="nazv-good">Солнечная Панель 140W</a>
+        <p class="text-good"><b>Размер:</b> 8.5х5.6х0.07см</p>
+    </div>
+</section>
+<section class="about-page">
+    <h1 class="about-us">О нас</h1>
+    <div class="about-us-text">Мы онлайн-магазин "ТОЧТОНАДО". Специализируемся на продаже и доставке в целостности различных товаров, преимущественно от бренда Allpowers, предоставляя выгодные цены, хорошее обслуживание и качественные консультации по любым вопросам, относящимся к продаваемой продукции. Множество положительных отзывов уже имеется о нашей работе и товарах. Работаем с 2022 года и не собираемся на этом останавливаться.</div>
+</section>
+<h1 class="review-head">Наши отзывы</h1>
+<div class="reviews">
+        <div class="review">
+            <img class="user-logo" src="../static/user.png" height="100">
+            <p class="user-name">Мария</p>
+            <p class="user-stars">★★★★★</p>
+            <p class="user-text">Регулярно покупаю здесь станции, помогут советом, расскажут что да как, одним словом МОЛОДЦЫ!</p>
+        </div>
+        <div class="review">
+            <img class="user-logo" src="../static/user.png" height="100">
+            <p class="user-name">Александр</p>
+            <p class="user-stars">★★★★★</p>
+            <p class="user-text">Купил себе и сыну две станции S300. С одной из них через время начались проблемы, но "ТОЧТОНАДО" быстро заменил на новую</p>
+        </div>
+
+        <div class="review">
+            <img class="user-logo" src="../static/user.png" height="100">
+            <p class="user-name">Антон</p>
+            <p class="user-stars">★★★★★</p>
+            <p class="user-text">Прекрасный магазин, попробовал один раз и уже вновь хочется вернуться. Отличный сервис и ответы быстрые</p>
+        </div>
+        <div class="review">
+            <img class="user-logo" src="../static/user.png" height="100">
+            <p class="user-name">Юлия</p>
+            <p class="user-stars">★★★★★</p>
+            <p class="user-text">Приобретала на отдых себе солнечную панель 140W и станцию R600. Моё лучшее приобретение за последние годы</p>
+        </div>
+        <div class="review">
+            <img class="user-logo" src="../static/user.png" height="100">
+            <p class="user-name">Тимур</p>
+            <p class="user-stars">★★★★★</p>
+            <p class="user-text">Покупал станцию R1500, мне она понравилась на все 100! Всем советую купить такую же</p>
+        </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}{% endblock %}
