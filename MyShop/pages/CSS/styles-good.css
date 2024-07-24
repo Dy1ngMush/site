@@ -1,0 +1,119 @@
+.main-section{
+    padding-top: 5vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.main-text {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 30px;
+}
+img {
+    max-width: 400px;
+    margin-right: 150px;
+    margin-bottom: 5vw;
+    height: auto;
+}
+
+.price-block {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: center;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    width: 80%;
+}
+
+.quantity {
+    width: 110px;
+}
+
+.cart-button {
+    width: 200px;
+}
+
+.good-name, .price-text, .quantity-text, .description-header {
+    color: #33333386;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+.price-number {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.description-block {
+    margin-bottom: 5vw;
+}
+
+.tech {
+    font-weight: 700;
+    font-size: 19px;
+    color: #161616;
+    letter-spacing: 0.4px;
+}
+
+.description-header {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.add-to-cart-btn {
+    all: unset;
+    cursor: pointer;
+    width: 80px;
+    height: 50px;
+    font-size: 16px;
+    margin-left: -10px;
+  }
+
+.add-to-cart {
+    color: black;
+}
+
+#form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 70px;
+    width: 100%;
+    align-items:flex-start;
+    justify-content: flex-start;
+}
+
+svg.add-to-cart {
+    height: 50px;
+    width: 85px;
+}
+svg.add-to-cart {
+    transition: 0.5s;
+}
+
+button:hover svg.add-to-cart{
+    scale: 1.2;
+}
+
+p.add-to-cart-text {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    opacity: 0.8;
+    margin-left: 0px;
+}
+
+main.dark-mode span{
+    color: white
+}
+main.dark-mode .add-to-cart{
+    color:white;
+}

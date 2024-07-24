@@ -1,0 +1,155 @@
+.stick {
+    position: sticky;
+    top: 75px;
+    min-width: 200px;
+    max-width: 200px;
+    height: 400px;
+    margin-top: 20px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+}
+
+form.yes {
+    background-color: #4654e1;
+    width: 100%;
+    height: 44px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+input.q1 {
+    all: unset;
+    font: 16px system-ui;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    padding: 6px 10px;
+  }
+::placeholder {
+    color: #fff;
+    opacity: 0.7; 
+  }
+  
+svg.lupa {
+    color: #fff;
+    fill: currentColor;
+    padding: 10px;
+  }
+  
+.search-head {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 50px;
+    position: sticky;
+    top: 10px;
+}
+
+.central-section {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    padding-top: 50px;
+}
+.main-section {
+    display: flex;
+}
+
+.grid-of-goods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    align-items:start;
+    
+    gap: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.good {
+    width: 250px;
+    height: 250px;
+    background-color: rgba(63, 63, 63, 0.151);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 30px;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+.good-item {
+  height: 125px;
+  margin-top: 50px;
+}
+
+.good-text {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.01px;
+  opacity: 0.8;
+  font-weight: 600;
+  color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.text-with-stars {
+  margin-top: 25px;
+  position: relative;
+}
+
+.stars {
+  margin-left: 165px;
+}
+
+.query div.hidden.hide {
+  display: none;
+}
+
+div.good.hidden {
+  font-size: 0px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+p.price, p.stars {
+  font-size: 16px;
+}
+
+p.price {
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  opacity: 1;
+  letter-spacing: 0.1px;
+}
+
+label {
+  user-select: none;
+}
+
+.price-head {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+.priceminmax {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.type-of-battery.hide{
+  display: none
+}
+
+main.dark-mode .yes {
+  background-color: #414141c2;
+}
+
+.good-text.dark-mode {
+  opacity: 0.85;
+}

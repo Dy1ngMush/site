@@ -1,0 +1,65 @@
+.preloader{
+    --size: 200px;
+    --first-color: #ff7473;
+    --second-color: #ffc952;
+    --third-color: #47b8e0;
+    --thickness: 3px;
+    --duration: 2s;
+    position: fixed;
+    background-color: #333333;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s;
+}
+
+.preloader_content {
+position: relative;
+width: var(--size);
+height: var(--size); 
+}
+
+.preloader_first, .preloader_second, .preloader_third {
+position: absolute;
+width: 100%;
+height: 100%;
+border-radius: 50%;
+animation: var(--duration) linear;
+}
+
+.preloader_first {
+border-bottom: var(--thickness) solid var(--first-color);
+animation-name: first;
+}
+
+.preloader_second {
+border-right: var(--thickness) solid var(--second-color);
+animation-name: second;
+}
+
+.preloader_third {
+border-top: var(--thickness) solid var(--third-color);
+animation-name: third;
+}
+
+@keyframes first {
+0% {transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);}
+100% {transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);}
+}
+
+@keyframes second {
+0% {transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);}
+100% {transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);}
+}
+
+@keyframes third {
+0% {transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);}
+100% {transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);}
+}
+
+.preloader.dark-mode {
+    background-color: #333333;
+}
