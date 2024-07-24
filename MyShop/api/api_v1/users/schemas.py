@@ -12,7 +12,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: bytes
-    active: bool = True
+    active: str = 'true'
 
 
 class UserToken(UserCreate):
