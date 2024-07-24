@@ -19,6 +19,7 @@ main_app = FastAPI(
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
 )
+templates = Jinja2Templates(directory='pages')
 main_app.include_router(api_router)
 
 if __name__ == "__main__":
