@@ -16,8 +16,8 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(32), unique=False)
     email: Mapped[str] = mapped_column(String(64), unique=True)
     password: Mapped[str] = mapped_column(String(128))
-    active: Mapped[bool] = mapped_column(Boolean, default=True)
     active: Mapped[bool] = mapped_column(String(5), default='true')
+    role: Mapped[str] = mapped_column(String(32), default='regular')
 
     order: Mapped["Order"] = relationship(back_populates="user")
     profile: Mapped["Profile"] = relationship(back_populates="user")
