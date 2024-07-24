@@ -48,8 +48,8 @@ async def get(req: Request):
 
 
 @main_app.get('/products')
-async def get(req: Request):
-    return templates.TemplateResponse('goods.html', {"request": req})
+async def get(req: Request, products=Depends(get_all_products)):
+    return templates.TemplateResponse('products.html', {"request": req, "products": products})
 
 
 @main_app.get('/product/140w')
