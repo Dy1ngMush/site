@@ -5,7 +5,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import ORJSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
+
+from api.api_v1.products.views import get_all_products
 from core.config import settings
 from api import router as api_router
 from core.models import db_helper
