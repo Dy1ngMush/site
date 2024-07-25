@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block link %}
+<li><a class="header-link" href="/">Главная</a></li>
+<li><a class="header-link" href="/products">Товары</a></li>
+{% endblock %}
+
+{% block title %}
+    {% if request.path[9:] in zxc %}
+        Солнечная панель {{request.path[9:]}}
+    {% else %}
+        Электростанция {{request.path[9:]}}
+    {% endif %}
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/CSS/styles-good.css">
+{% endblock %}
+
+
+{% block content %}
+<section class="main-section">
+    {% for product in products %}
+        {% if product.shortname == request.path[9:] %}
+            <div>
+                <img src="/static/{{product.shortname}}.png" height="300px">
+                <div class="description-block">
+                    <span class="tech">Технические параметры</span>
+                    <div class="description-header">
+                        <span>Характеристики и описание:</span>
+                    </div>
+                    <article class="description">
+                        {% autoescape off %}
+                        {{product.description}}
+                        {% endautoescape %}
+                    </article>
+                </div>
+            </div>
+            <div class="stick">
+                <div class="main-text">
+                    <span class="good-name">Наименование товара</span>
+                    <h2 class="good-header">{{product.name}}</h2>
+                    <div class="price-block">
+                        <div class="soed">
+                        <form id="form">
+                        <div class="price">
+                            <span class="price-text">Без учёта НДС</span>
+                            <p class="price-number">{{product.price}} ₽</p>
+                        </div>
+
+                        <div class="block-quantity">
+                            <div>
+                            <span class="quantity-text">Количество, шт</span>
+                            <div class="quantity">
+                                <input class="quantity" type="number" name="quantity" value="1" title="Кол-во" size="4" min="1" max="" step="1" placeholder="" inputmode="numeric" autocomplete="off">
+                            </div>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><svg class="add-to-cart" width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 5L19 12H7.37671M20 16H8L6 3H3M16 5.5H13.5M13.5 5.5H11M13.5 5.5V8M13.5 5.5V3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg></button>
+                        </form>
+                        <p class="add-to-cart-text">Добавить</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</section>
+{% endblock %}
