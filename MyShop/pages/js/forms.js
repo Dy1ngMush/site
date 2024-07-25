@@ -88,8 +88,33 @@ async function checkuser(event){
         }
         return response.json();
     }).then(function(data){
-        sessionStorage.setItem('access_token', data.access_token)
+        setCookie('access_token', data.access_token)
+        setCookie('access_token_id', data.id)
     })
-
+    var object = {'access_token': getCookie('access_token')}
+    var json = JSON.stringify(object)
+    console.log(json)
+    await fetch('http://localhost:8000/api/v1/tokens/get_user_id', {
+        credentials: "same-origin",
+        method: 'POST',
+        headers: { "Content-Type": 'application/json'},
+        body: json,
+        }).then(function(response) {
+        return response.json();
+        }).then(function(data){
+            setCookie('user_id', data)
+        })
+    await fetch('http://localhost:8000/api/v1/profiles', {
+        credentials: "same-origin",
+        method: 'GET',
+        headers: { "Content-Type": 'application/json', "Authrorization": getCookie('access_token')},
+    }).then(function(response){
+    if (response.status != 200){
+        window.location = `http://localhost:8000/create_profile/${getCookie('user_id')}`;
+    }
+    else {
+        window.location = `http://localhost:8000/`
+    return response.json();
+    }
+    })
 }
-
