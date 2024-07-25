@@ -21,8 +21,10 @@ exit.addEventListener('click', async function(){
 }
 
 async function saveuser(event) {
-    event.preventDefault();
+    const formsignup = document.getElementById('signup-form');
+
     const myFormData = new FormData(formsignup);
+    const popUpSignIn = document.getElementById('pop_up_signin');
     const password = myFormData.get('password')
     const password2 = myFormData.get('password2')
     const error = document.querySelector('.error.signup')
@@ -45,15 +47,14 @@ async function saveuser(event) {
             headers: { "Content-Type": "application/json" },
             body: json,
         })
-        formsignup.classList.add('hide')
-
-
+        location.reload()
 
     }
 }
 
 async function checkuser(event){
     event.preventDefault();
+    const formsignin = document.getElementById('signin-form');
 
     const myFormData = new FormData(formsignin);
     const error403 = document.getElementById('403')
