@@ -5,7 +5,19 @@ formsignup.addEventListener('submit', saveuser);
 if (document.querySelector('#signin-form')){
 const formsignin = document.getElementById('signin-form');
 formsignin.addEventListener('submit', checkuser);
-
+}
+if (document.querySelector('#exit-button')){
+const exit = document.getElementById('exit-button');
+exit.addEventListener('click', async function(){
+    await fetch(`http://localhost:8000/api/v1/tokens/{token}?token_id=${getCookie("access_token_id")}`, {
+            method: 'DELETE',
+            headers: { "Content-Type": "application/json" },
+    })
+    deleteCookie("access_token_id");
+    deleteCookie('access_token');
+    deleteCookie('user_id');
+    location.reload()
+})
 }
 
 async function saveuser(event) {
