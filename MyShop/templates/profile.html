@@ -1,0 +1,31 @@
+{% if access_token != '' %}
+    {% extends "home.html" %}
+{% else %}
+    {% extends "base.html" %}
+{% endif %}
+
+{% block head %}<link rel="stylesheet" href="/CSS/profile.css">{% endblock %}
+
+{% block title %}
+{% set xxx = request.url | string() %}
+Профиль {{user.username}}
+{% endblock %}
+
+{% block link %}
+<li><a class="header-link" href="/">Главная</a></li>
+<li><a class="header-link" href="/products">Товары</a></li>
+{% endblock %}
+
+
+{% block content %}
+<div class="profile-head">
+    <h1 class="profile-head-text">Профиль пользователя <b>{{user.username}}</b></h1>
+</div>
+<div class="profile-body">
+    <ul class="body-of-profile">
+        <li class="first_name"><b>Имя:</b> {{profile.first_name}}</li>
+        <li class="last_name"><b>Фамилия:</b> {{profile.last_name}}</li>
+        <li class="bio"><b>Биография:</b> {{profile.bio}}</li>
+    </ul>
+</div>
+{% endblock %}
