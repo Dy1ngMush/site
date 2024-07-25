@@ -39,6 +39,7 @@ main_app.add_middleware(
 )
 
 templates = Jinja2Templates(directory='templates')
+dynamictemplates = Jinja2Templates(directory='templates')
 main_app.mount('/static/', StaticFiles(directory='pages/static'), name='pages/static')
 main_app.mount('/js/', StaticFiles(directory='pages/js'), name='pages/js')
 main_app.mount('/CSS/', StaticFiles(directory='pages/css'), name='pages/css')
@@ -46,28 +47,12 @@ main_app.mount('/CSS/', StaticFiles(directory='pages/css'), name='pages/css')
 
 @main_app.get('/')
 async def get(req: Request):
-    return templates.TemplateResponse('index.html', {"request": req})
+    return dynamictemplates.TemplateResponse('index.html', {"request": req})
 
 
 @main_app.get('/products')
 async def get(req: Request, products=Depends(get_all_products)):
-    return templates.TemplateResponse('products.html', {"request": req, "products": products})
-
-
-@main_app.get('/product/140w')
-async def get(req: Request):
-    return templates.TemplateResponse('140w.html', {"request": req})
-
-
-@main_app.get('/product/r600')
-async def get(req: Request):
-    return templates.TemplateResponse('r600.html', {"request": req})
-
-
-@main_app.get('/product/r1500')
-async def get(req: Request):
-    return templates.TemplateResponse('r1500.html', {"request": req})
-
+    return dynamictemplates.TemplateResponse('products.html', {"request": req, "products": products})
 
 @main_app.get('/product/s200')
 async def get(req: Request):
