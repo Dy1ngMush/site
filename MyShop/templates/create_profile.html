@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/CSS/normalize.css">
+    <link rel="stylesheet" href="/CSS/main.css">
+    <link rel="stylesheet" href="/CSS/styles.css">
+    <link rel="stylesheet" href="/CSS/preloader.css">
+    <link rel="stylesheet" href="/CSS/create_profile.css">
+    <title>Создание профиля</title>
+</head>
+<body>
+    <div class="preloader">
+        <div class="preloader_content">
+            <div class="preloader_first"></div>
+            <div class="preloader_second"></div>
+            <div class="preloader_third"></div>
+        </div>
+    </div>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/preloader.js"></script>
+        <header>
+        <nav class="navigation">
+            <div class="logo">
+                <svg fill="#111312" width="100px" height="100px" viewBox="-8.1 -8.1 46.20 46.20" xmlns="http://www.w3.org/2000/svg" stroke="#111312" stroke-width="0.00030000000000000003" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(6,6), scale(0.6)"><rect x="-8.1" y="-8.1" width="46.20" height="46.20" rx="23.1" fill="#FFFF00" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#ff0000" stroke-width="0.06"></g><g id="SVGRepo_iconCarrier"><path d="M19.5 10c.277 0 .5.223.5.5v3c0 .277-.223.5-.5.5s-.5-.223-.5-.5v-3c0-.277.223-.5.5-.5zm-9 0c.277 0 .5.223.5.5v3c0 .277-.223.5-.5.5s-.5-.223-.5-.5v-3c0-.277.223-.5.5-.5zm-1 10c-.507 0-.653.614-.315.888C10.803 22.243 12.89 23 15 23c2.11 0 4.203-.758 5.82-2.112.484-.404-.15-1.18-.64-.767-1.434 1.2-3.307 1.88-5.176 1.88-1.87 0-3.744-.68-5.176-1.88-.09-.076-.21-.12-.328-.12zM15 0C6.722 0 0 6.722 0 15c0 8.278 6.722 15 15 15 8.278 0 15-6.722 15-15 0-8.278-6.722-15-15-15zm0 1c7.738 0 14 6.262 14 14s-6.262 14-14 14S1 22.738 1 15 7.262 1 15 1z"></path></g>
+                <text fill="white", y="36px", font-size="7px", font-weight="700" x="-6">ТОЧТОНАДО</text>
+                </svg>
+            </div>
+            <div class="mini-div-for-theme"><input type="checkbox" id="theme" class="theme"><label class="theme-label" for="theme"></label></div>
+        </nav>
+
+    </header>
+<main>
+<div class="profile" id="profile">
+        <div class="pop_up_container">
+            <div class="pop_up_body">
+                <p>Создание профиля</p>
+                <form id=create_profile_form>
+                    <input id='first_name' type="text" name='first_name' placeholder="Имя" required>
+                    <input id='last_name' type="text" name='last_name' placeholder="Фамилия" required>
+                    <textarea id='bio' type="text" name='bio' placeholder="О себе" required></textarea>
+                    <button type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="https://unpkg.com/cookielib/src/cookie.js"></script>
+<script src="/js/profile.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+</html>
