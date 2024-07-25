@@ -1,9 +1,12 @@
+if (document.querySelector('#signup-form')){
 const formsignup = document.getElementById('signup-form');
 formsignup.addEventListener('submit', saveuser);
-
+}
+if (document.querySelector('#signin-form')){
 const formsignin = document.getElementById('signin-form');
 formsignin.addEventListener('submit', checkuser);
 
+}
 
 async function saveuser(event) {
     event.preventDefault();
