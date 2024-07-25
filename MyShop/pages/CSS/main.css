@@ -128,7 +128,7 @@ p.footer-link {
     margin-bottom: 40px;
 }
 
-.pop_up_body input {
+.pop_up_body input, textarea {
     display: block;
     margin: 25px auto 0px auto;
     width: 330px;
@@ -179,4 +179,10 @@ p.footer-link {
 
 .error.hide {
     display: none;
+}
+
+textarea {
+width: 400px;
+height: 150px;
+resize: none
 }
