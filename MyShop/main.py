@@ -38,7 +38,6 @@ main_app.add_middleware(
     allow_headers=["*"],
 )
 
-templates = Jinja2Templates(directory='templates')
 dynamictemplates = Jinja2Templates(directory='templates')
 main_app.mount('/static/', StaticFiles(directory='pages/static'), name='pages/static')
 main_app.mount('/js/', StaticFiles(directory='pages/js'), name='pages/js')
@@ -54,29 +53,15 @@ async def get(req: Request):
 async def get(req: Request, products=Depends(get_all_products)):
     return dynamictemplates.TemplateResponse('products.html', {"request": req, "products": products})
 
-@main_app.get('/product/s200')
-async def get(req: Request):
-    return templates.TemplateResponse('s200.html', {"request": req})
-
-
-@main_app.get('/product/s300')
-async def get(req: Request):
-    return templates.TemplateResponse('s300.html', {"request": req})
-
-
-@main_app.get('/product/s2000-pro')
-async def get(req: Request):
-    return templates.TemplateResponse('s2000pro.html', {"request": req})
-
-
-@main_app.get('/product/s700')
-async def get(req: Request):
-    return templates.TemplateResponse('s700.html', {"request": req})
-
-
-@main_app.get('/product/200w')
-async def get(req: Request):
-    return templates.TemplateResponse('200w.html', {"request": req})
+@main_app.get('/product/{product_name}')
+async def get(req: Request, products=Depends(get_all_products)):
+    return dynamictemplates.TemplateResponse(
+        'product.html', {
+            "request": req,
+            "products": products,
+            'zxc': ['200w', '140w'],
+             }
+    )
 
 
 main_app.include_router(api_router)
