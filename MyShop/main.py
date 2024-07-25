@@ -6,6 +6,10 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import ORJSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, Request, Depends
+from uuid import UUID
+from api.api_v1.profile.dependencies import profile_by_user_id
+from api.api_v1.users.dependencies import user_by_id
+from auth.utils import decode_jwt
 
 from api.api_v1.products.views import get_all_products
 from core.config import settings
@@ -46,22 +50,57 @@ main_app.mount('/CSS/', StaticFiles(directory='pages/css'), name='pages/css')
 
 @main_app.get('/')
 async def get(req: Request):
-    return dynamictemplates.TemplateResponse('index.html', {"request": req})
+    if req.cookies.get('access_token'):
+        access_token = decode_jwt(req.cookies['access_token'])
+        return dynamictemplates.TemplateResponse('index.html', {"request": req, "access_token": access_token})
+    else:
+        return dynamictemplates.TemplateResponse('index.html', {"request": req, "access_token": ''})
 
 
 @main_app.get('/products')
 async def get(req: Request, products=Depends(get_all_products)):
-    return dynamictemplates.TemplateResponse('products.html', {"request": req, "products": products})
+    if req.cookies.get('access_token'):
+        access_token = decode_jwt(req.cookies['access_token'])
+        return dynamictemplates.TemplateResponse('products.html', {"request": req, "products": products, "access_token": access_token})
+    else:
+        return dynamictemplates.TemplateResponse('products.html', {"request": req, "products": products, "access_token": ''})
+
 
 @main_app.get('/product/{product_name}')
 async def get(req: Request, products=Depends(get_all_products)):
-    return dynamictemplates.TemplateResponse(
-        'product.html', {
-            "request": req,
-            "products": products,
-            'zxc': ['200w', '140w'],
-             }
-    )
+    if req.cookies.get('access_token'):
+        access_token = decode_jwt(req.cookies['access_token'])
+        return dynamictemplates.TemplateResponse('product.html', {"request": req,
+                                                                  "products": products,
+                                                                  'zxc': ['200w', '140w'],
+                                                                  "access_token": access_token,
+                                                                  })
+    else:
+        return dynamictemplates.TemplateResponse(
+            'product.html', {
+                "request": req,
+                "products": products,
+                'zxc': ['200w', '140w'],
+                "access_token": ''
+                 }
+        )
+
+
+@main_app.get('/create_profile/{user_id}')
+async def create_profile(req: Request):
+    return dynamictemplates.TemplateResponse('create_profile.html', {"request": req})
+
+
+@main_app.get('/profile/{user_id}')
+async def get_profile(req: Request, session=Depends(db_helper.session_getter)):
+    profile = await profile_by_user_id(UUID(str(req.url)[30:]), session=session)
+    user = await user_by_id(UUID(str(req.url)[30:]), session=session)
+    print(user.username)
+    if req.cookies.get('access_token'):
+        access_token = decode_jwt(req.cookies['access_token'])
+        return dynamictemplates.TemplateResponse('profile.html', {"request": req, "profile": profile, "user": user, "access_token": access_token})
+    else:
+        return dynamictemplates.TemplateResponse('profile.html', {"request": req, "profile": profile, "user": user, "access_token": ''})
 
 
 main_app.include_router(api_router)
