@@ -1,4 +1,8 @@
-{% extends "base.html" %}
+{% if access_token != '' %}
+    {% extends "home.html" %}
+{% else %}
+    {% extends "base.html" %}
+{% endif %}
 
 {% block link %}<li><a class="header-link" href="/">Главная</a></li>{% endblock %}
 {% block title %}Список товаров{% endblock %}
