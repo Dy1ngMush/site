@@ -1,0 +1,28 @@
+.profile-head {
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 50px;
+    border-bottom: 1px solid #515151;
+}
+
+.body-of-profile {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 18px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.bio {
+    word-wrap: break-word;
+}
+main {
+    height: 50vh;
+}
+
+.profile-body {
+    margin-left: 25%;
+    margin-right: 25%;
+}
