@@ -7,6 +7,8 @@ from .products.views import router as products_router
 from .profile.views import router as profiles_router
 from .tokens.views import router as tokens_router
 from .order.views import router as order_router
+from .trueorder.views import router as true_order_router
+# from .pages.views import router as pages_router
 
 # from .demo_auth.views import router as demo_auth_router
 # from .demo_auth.demo_jwt_auth import router as demo_jwt_auth_router
@@ -39,10 +41,11 @@ router.include_router(
     order_router,
     prefix=settings.api.v1.orders,
 )
-# router.include_router(
-#     demo_auth_router,
-#     prefix=settings.api.v1.demo_auth,
-# )
+
+router.include_router(
+    true_order_router,
+    prefix=settings.api.v1.true_orders,
+)
 
 # router.include_router(
 #     demo_jwt_auth_router,
