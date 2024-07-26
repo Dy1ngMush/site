@@ -5,12 +5,13 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.api_v1.demo_auth.helpers import create_access_token
-from auth.utils import validate_password
+from auth.utils import validate_password, decode_jwt
 from core.models import Token, User
 from api.api_v1.users.schemas import UserCreate
+from api.api_v1.tokens.schemas import TokenRead
 
 
-async def create_token(session: AsyncSession, user_data: UserCreate) -> Token:
+async def create_token(session: AsyncSession, user_data: UserCreate) -> TokenRead:
     query = select(User).where(User.email == user_data.email)
     user: User = await session.scalar(query)
     if not user:
@@ -27,8 +28,9 @@ async def create_token(session: AsyncSession, user_data: UserCreate) -> Token:
     session.add(token)
     await session.commit()
     await session.refresh(token)
-    return Token(
+    return TokenRead(
         access_token=token.access_token,
+        id=token.id
     )
 
 
