@@ -117,3 +117,16 @@ main.dark-mode span{
 main.dark-mode .add-to-cart{
     color:white;
 }
+
+.product-id.hide {
+    display: none;
+}
+
+#error-product {
+    color: #db3939;
+    text-align: left;
+}
+
+#error-product.hide {
+    display: none;
+}

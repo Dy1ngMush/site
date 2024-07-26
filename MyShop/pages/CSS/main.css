@@ -6,11 +6,15 @@
     margin-right: 10vw;
 }
 
-.main, .user{
+.main{
     display: flex;
     gap: 5vw;
 }
 
+.user {
+    display: flex;
+    gap: 0px;
+}
 a.header-link, a.footer-link {
     color: white;
     font-size: 15px;
