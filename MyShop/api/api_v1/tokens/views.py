@@ -20,7 +20,15 @@ async def create_token(
     return await crud.create_token(session=session, user_data=user_data)
 
 
-@router.delete("/{token_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/get_user_id")
+async def get_user_id(
+    access_token: Token,
+    session: AsyncSession = Depends(db_helper.session_getter),
+):
+    return await crud.get_user_id(session=session, access_token=access_token)
+
+
+@router.delete("/{token}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_token(
     token: Token = Depends(token_by_id),
     session: AsyncSession = Depends(db_helper.session_getter),

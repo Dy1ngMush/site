@@ -41,6 +41,14 @@ async def get_token(
     return await session.get(Token, token_id)
 
 
+async def get_user_id(
+        session: AsyncSession,
+        access_token: Token,
+):
+    access_token = decode_jwt(access_token.access_token)["sub"]
+    return access_token
+
+
 async def get_token_by_user_id(
     session: AsyncSession,
     user_id: UUID,
