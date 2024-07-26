@@ -1,0 +1,47 @@
+{% extends "home.html" %}
+
+{% block head %}<link rel="stylesheet" href="/CSS/cart.css">{% endblock %}
+{% block title %}Корзина{% endblock %}
+
+{% block link %}
+<li><a class="header-link" href="/">Главная</a></li>
+<li><a class="header-link" href="/products">Товары</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="main-section">
+    <div class="cart">
+        {% for product in cart.products_details %}
+        <div class="cart-products">
+            <div class="cart-product">
+                <div class="cart-item-img">
+                    <a href="/product/{{product.product.shortname}}"><img class="img-of-product" src="/static/{{product.product.shortname}}.png" alt="Product image"></a>
+                </div>
+                <div class="cart-item-info">
+                    <h3><a href="/product/{{product.product.shortname}}">{{product.product.name}}</a></h3>
+                    <p>Количество: {{product.quantity}}</p>
+                    <p>Цена: {{product.product.price*product.quantity}} <b>₽</b></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div>
+    <div class="cart-total">
+            <div>
+                Общая цена: {{sum}} <b>₽</b>
+            </div>
+        <div>
+            <button class="button-order">
+            <a href="#" class="cart-button">Оформить заказ</a>
+            </button>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+
+{% endblock %}
