@@ -13,8 +13,20 @@ async def profile_by_id(
     profile_id: UUID,
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
 ) -> Profile:
-    print(profile_id)
     profile = await crud.get_profile(session=session, user_id=profile_id)
+    if profile is not None:
+        return profile
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"Profile not found!",
+    )
+
+
+async def profile_by_user_id(
+        user_id: UUID,
+        session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
+) -> Profile:
+    profile = await crud.get_profile(session=session, user_id=user_id)
     if profile is not None:
         return profile
     raise HTTPException(
