@@ -4,7 +4,10 @@
     {% extends "base.html" %}
 {% endif %}
 
-{% block link %}<li><a class="header-link" href="/">Главная</a></li>{% endblock %}
+{% block link %}
+<li><a class="header-link" href="/">Главная</a></li>
+<li><a class="header-link" href="/cart">Корзина</a></li>
+{% endblock %}
 {% block title %}Список товаров{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="/CSS/goods.css">
