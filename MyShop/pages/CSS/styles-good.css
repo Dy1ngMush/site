@@ -130,3 +130,21 @@ main.dark-mode .add-to-cart{
 #error-product.hide {
     display: none;
 }
+
+#add-success {
+    color: #4caf50;
+    text-align: left;
+}
+
+#add-error {
+    color: #db3939;
+    text-align: left;
+}
+
+#add-success.hide {
+    display: none;
+}
+
+#add-error.hide {
+    display: none;
+}
