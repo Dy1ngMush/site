@@ -39,7 +39,6 @@ async def profile_by_profile_id(
     profile_id: UUID,
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
 ) -> Profile:
-    print(profile_id)
     profile = await crud.get_profile_by_user_id(session=session, profile_id=profile_id)
     if profile is not None:
         return profile
