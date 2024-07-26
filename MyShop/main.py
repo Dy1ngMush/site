@@ -7,6 +7,8 @@ from fastapi.responses import ORJSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, Request, Depends
 from uuid import UUID
+
+from api.api_v1.order.crud import get_order_with_products_assoc
 from api.api_v1.profile.dependencies import profile_by_user_id
 from api.api_v1.users.dependencies import user_by_id
 from auth.utils import decode_jwt
@@ -102,6 +104,18 @@ async def get_profile(req: Request, session=Depends(db_helper.session_getter)):
     else:
         return dynamictemplates.TemplateResponse('profile.html', {"request": req, "profile": profile, "user": user, "access_token": ''})
 
+
+@main_app.get('/cart')
+async def get_cart(req: Request, session=Depends(db_helper.session_getter)):
+    if req.cookies.get('access_token'):
+        access_token = decode_jwt(req.cookies['access_token'])
+        cart = await get_order_with_products_assoc(session, access_token['sub'])
+        sum = 0
+        for product in cart.products_details:
+            sum += product.quantity*product.product.price
+        return dynamictemplates.TemplateResponse('cart.html', {"request": req, "access_token": access_token, "cart": cart, "sum": sum})
+    else:
+        return dynamictemplates.TemplateResponse('nocart.html', {"request": req, "access_token": ''})
 
 main_app.include_router(api_router)
 if __name__ == "__main__":
