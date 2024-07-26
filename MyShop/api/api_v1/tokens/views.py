@@ -6,13 +6,13 @@ from . import crud
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .dependencies import token_by_id
-from .schemas import Token
+from .schemas import Token, TokenRead
 from ..users.schemas import UserCreate
 
 router = APIRouter(tags=["Tokens"])
 
 
-@router.post("", response_model=Token, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=TokenRead, status_code=status.HTTP_201_CREATED)
 async def create_token(
     user_data: UserCreate,
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
