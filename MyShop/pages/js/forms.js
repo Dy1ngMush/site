@@ -108,6 +108,21 @@ async function checkuser(event){
         }).then(function(data){
             setCookie('user_id', data)
         })
+    user_id = getCookie("user_id")
+    await fetch('http://localhost:8000/api/v1/cart', {
+        credentials: "same-origin",
+        method: "GET",
+        headers: { "Content-Type": 'application/json', "Authrorization": getCookie('access_token')}
+    }).then(function(response){
+        if (response.status != 200){
+        fetch('http://localhost:8000/api/v1/carts', {
+            credentials: "same-origin",
+            method: 'POST',
+            headers: { "Content-Type": 'application/json', "Authrorization": getCookie('access_token')},
+            body: JSON.stringify({'user_id': user_id})
+            })
+        }
+    })
     await fetch('http://localhost:8000/api/v1/profiles', {
         credentials: "same-origin",
         method: 'GET',
