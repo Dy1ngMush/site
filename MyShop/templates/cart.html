@@ -28,20 +28,19 @@
     </div>
     <div>
     <div class="cart-total">
-            <div>
-                Общая цена: {{sum}} <b>₽</b>
-            </div>
+        <div>Общая цена: <label id="summ">{{sum}} <b>₽</b><label></div>
         <div>
-            <button class="button-order">
-            <a href="#" class="cart-button">Оформить заказ</a>
-            </button>
+            <form id="create-order">
+                <button type="submit" class="button-order">Оформить заказ</button>
+            </form>
         </div>
     </div>
+        <p id="add-error" class="hide">Добавьте товары в заказ</p>
     </div>
 </div>
 {% endblock %}
 
 
 {% block footer %}
-
+<script src="/js/cart.js"></script>
 {% endblock %}
