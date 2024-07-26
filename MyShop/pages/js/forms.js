@@ -22,7 +22,9 @@ exit.addEventListener('click', async function(){
 
 async function saveuser(event) {
     const formsignup = document.getElementById('signup-form');
-
+    if (getCookie("access_token")){
+        deleteCookie('access_token')
+    }
     const myFormData = new FormData(formsignup);
     const popUpSignIn = document.getElementById('pop_up_signin');
     const password = myFormData.get('password')
@@ -55,7 +57,9 @@ async function saveuser(event) {
 async function checkuser(event){
     event.preventDefault();
     const formsignin = document.getElementById('signin-form');
-
+    if (getCookie("access_token")){
+        deleteCookie('access_token')
+    }
     const myFormData = new FormData(formsignin);
     const error403 = document.getElementById('403')
     const error404 = document.getElementById('404')
@@ -113,7 +117,7 @@ async function checkuser(event){
         window.location = `http://localhost:8000/create_profile/${getCookie('user_id')}`;
     }
     else {
-        window.location = `http://localhost:8000/`
+        location.reload()
     return response.json();
     }
     })
