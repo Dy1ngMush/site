@@ -1,0 +1,57 @@
+.main-section {
+    min-height: 50vh;
+    margin-left: 15%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.user-order-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+    margin-right: 15%;
+}
+
+.order {
+    display: flex;
+    gap: 100px;
+}
+
+.order-name-products {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(63,63,63, .5);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.order-products {
+    display: flex;
+    gap: 50px;
+}
+
+img {
+    height: 125px;
+}
+
+.product-info, .order-products {
+    text-align: center;
+}
+
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start
+}
+
+.order-summ {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
