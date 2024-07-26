@@ -49,6 +49,7 @@
     background-color: #3498db;
     border-radius: 10px;
     padding: 10px 20px;
+    cursor: pointer;
 }
 
 .cart-button {
@@ -56,4 +57,14 @@
 }
 main.dark-mode .button-order {
     background-color: #414141c2;
+    color: white;
+}
+
+#add-error {
+    color: #db3939;
+    text-align: left;
+}
+
+#add-error.hide {
+    display: none;
 }
