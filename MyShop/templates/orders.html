@@ -1,0 +1,46 @@
+{% extends "home.html" %}
+
+{% block head %}<link rel="stylesheet" href="/CSS/orders.css">{% endblock %}
+{% block title %}Заказы{% endblock %}
+
+{% block link %}
+<li><a class="header-link" href="/">Главная</a></li>
+<li><a class="header-link" href="/products">Товары</a></li>
+<li><a class="header-link" href="/cart">Корзина</a></li>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+<div class="main-section">
+    <div class="user-order-header">
+        Заказы пользователя {{access_token['username']}}
+    </div>
+    <div class="orders">
+        {% for order in orders %}
+        <div class="order">
+            <div class="order-name-products">
+                Номер заказа: {{order.id}}
+                <div class="order-products">
+                    {% for product in order.products_details %}
+                    <div class="product">
+                        <a href="/product/{{product.product.shortname}}"><img src="/static/{{product.product.shortname}}.png" alt="Product 1"></a>
+                        <div class="product-info">
+                            <p class="product-name">{{product.product.name}}</p>
+                            <p class="product-quantity">{{product.quantity}} шт.</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="order-summ">
+                <div class="summ-header">Общая сумма заказа:</div>
+                <div class="summ">{{order.total_price}} ₽</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
