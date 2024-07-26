@@ -33,6 +33,7 @@
                 {% block link %}{% endblock %}
             </ul>
             <ul class="user">
+                <li class="button"><a class="header-link" href="/orders/{{access_token['sub']}}">Заказы</a></li>
                 <li class="button"><a class="header-link" href="/profile/{{access_token['sub']}}">Профиль</a></li>
                 <li class="button" id="exit-button"><a class="header-link" href="#">Выход</a></li>
             </ul>
