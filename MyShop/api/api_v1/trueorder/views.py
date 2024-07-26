@@ -34,6 +34,15 @@ async def get_order(
     return await crud.get_order(access_token, session, order_id=order_id)
 
 
+@router.get("/by_user_id/", response_model=None)
+async def get_order(
+    access_token: Annotated[str, Depends(apikey_scheme)],
+    session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
+):
+    access_token = decode_jwt(access_token)["sub"]
+    return await crud.get_order_by_user_id(access_token, session)
+
+
 @router.delete("/delete_all_products", response_model=None)
 async def delete_all_products_in_order(
     access_token: Annotated[str, Depends(apikey_scheme)],

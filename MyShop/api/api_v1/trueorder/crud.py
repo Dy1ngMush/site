@@ -1,6 +1,6 @@
 import uuid
 from pathlib import Path
-from typing import Annotated
+from typing import Sequence
 from uuid import UUID
 
 from sqlalchemy import select
@@ -79,6 +79,22 @@ async def get_order(
     result = await session.scalar(stmt)
     return result
 
+
+async def get_order_by_user_id(
+    access_token: UUID,
+    session: AsyncSession,
+) -> Sequence[TrueOrder]:
+    stmt = (
+        select(TrueOrder)
+        .options(
+            selectinload(TrueOrder.products_details).joinedload(
+                TrueOrderProductAssociation.product
+            ),
+        )
+        .where(TrueOrder.user_id == access_token)
+    )
+    result = await session.scalars(stmt)
+    return result.all()
 
 async def delete_order(
     session: AsyncSession,
