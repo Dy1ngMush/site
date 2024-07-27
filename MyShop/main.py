@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-
+import requests
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
@@ -24,6 +24,13 @@ origins = [
     "http://localhost",
     "http://127.0.0.1"
 ]
+
+dog_url = "https://dog.ceo/api/breeds/image/random"
+
+def get_dog():
+    dog_url = "https://dog.ceo/api/breeds/image/random"
+    dog_response = requests.get(dog_url).json()
+    return dog_response["message"]
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -98,9 +105,10 @@ async def create_profile(req: Request):
 async def get_profile(req: Request, session=Depends(db_helper.session_getter)):
     profile = await profile_by_user_id(UUID(str(req.url)[30:]), session=session)
     user = await user_by_id(UUID(str(req.url)[30:]), session=session)
+    dog = get_dog()
     if req.cookies.get('access_token'):
         access_token = decode_jwt(req.cookies['access_token'])
-        return dynamictemplates.TemplateResponse('profile.html', {"request": req, "profile": profile, "user": user, "access_token": access_token})
+        return dynamictemplates.TemplateResponse('profile.html', {"request": req, "dog": dog, "profile": profile, "user": user, "access_token": access_token})
     else:
         return dynamictemplates.TemplateResponse('profile.html', {"request": req, "profile": profile, "user": user, "access_token": ''})
 
@@ -119,10 +127,11 @@ async def get_cart(req: Request, session=Depends(db_helper.session_getter)):
     if req.cookies.get('access_token'):
         access_token = decode_jwt(req.cookies['access_token'])
         cart = await get_order_with_products_assoc(session, access_token['sub'])
+        user = await user_by_id(access_token['sub'], session=session)
         sum = 0
         for product in cart.products_details:
             sum += product.quantity*product.product.price
-        return dynamictemplates.TemplateResponse('cart.html', {"request": req, "access_token": access_token, "cart": cart, "sum": sum})
+        return dynamictemplates.TemplateResponse('cart.html', {"request": req, "access_token": access_token, "user": user, "cart": cart, "sum": sum})
     else:
         return dynamictemplates.TemplateResponse('nocart.html', {"request": req, "access_token": ''})
 
@@ -132,7 +141,8 @@ async def get_orders(req: Request, session=Depends(db_helper.session_getter)):
     if req.cookies.get('access_token'):
         access_token = decode_jwt(req.cookies['access_token'])
         orders = await get_order_by_user_id(access_token['sub'], session)
-        return dynamictemplates.TemplateResponse('orders.html', {"request": req, "access_token": access_token, "orders": orders})
+        user = await user_by_id(access_token['sub'], session=session)
+        return dynamictemplates.TemplateResponse('orders.html', {"request": req, "user": user, "access_token": access_token, "orders": orders})
     else:
         return dynamictemplates.TemplateResponse('noorders.html', {"request": req, "access_token": ''})
 
