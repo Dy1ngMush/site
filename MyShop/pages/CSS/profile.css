@@ -26,3 +26,21 @@ main {
     margin-left: 25%;
     margin-right: 25%;
 }
+
+.btn-n-header {
+    position: relative;
+}
+
+.edit-profile {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: #3498db;
+    border: none;
+    cursor: pointer;
+}
+
+main.dark-mode .edit-profile {
+    background-color: #434343;
+    color: #adadad;
+}
