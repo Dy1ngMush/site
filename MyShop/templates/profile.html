@@ -19,6 +19,7 @@
 
 
 {% block content %}
+<div class="main-section">
 <div class="profile-head">
     <div class="btn-n-header">
         <h1 class="profile-head-text">Профиль пользователя <b>{{user.username}}</b></h1>
@@ -27,6 +28,13 @@
 </div>
 <div class="profile-body">
     <ul class="body-of-profile">
+        {% if user.role == 'regular' %}
+            <li class="role"><b>Роль:</b> Обычный пользователь</li>
+        {% elif user.role == 'regular+' %}
+            <li class="role"><b>Роль:</b> Пользователь+ <br><b>КРУТЫЕ СОБАКИ ПРЯМО В ПРОФИЛЕ!!!</b></li>
+        {% elif user.role == 'regular++' %}
+            <li class="role"><b>Роль:</b> Пользователь++ <br><b>Скидка на все товары 10%!!!</b></li>
+        {% endif %}
         <li class="first_name"><b>Имя:</b> {{profile.first_name}}</li>
         <li class="last_name"><b>Фамилия:</b> {{profile.last_name}}</li>
         <li class="bio"><b>Биография:</b> {{profile.bio}}</li>
