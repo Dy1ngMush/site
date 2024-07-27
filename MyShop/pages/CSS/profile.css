@@ -1,7 +1,4 @@
 .profile-head {
-    margin-left: 25%;
-    margin-right: 25%;
-    padding-top: 50px;
     border-bottom: 1px solid #515151;
 }
 
@@ -18,19 +15,14 @@
 .bio {
     word-wrap: break-word;
 }
-main {
-    height: 50vh;
-}
-
-.profile-body {
-    margin-left: 25%;
-    margin-right: 25%;
-}
 
 .btn-n-header {
     position: relative;
 }
 
+main {
+    min-height: 50vh;
+}
 .edit-profile {
     position: absolute;
     right: 10px;
@@ -43,4 +35,24 @@ main {
 main.dark-mode .edit-profile {
     background-color: #434343;
     color: #adadad;
+}
+
+.main-section {
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 50px;
+}
+
+.dog-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    flex-direction: column;
+    padding-bottom: 50px;
+}
+
+.dog-img {
+    width: 300px;
+    height: auto;
 }
