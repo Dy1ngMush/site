@@ -40,6 +40,15 @@
         <li class="bio"><b>Биография:</b> {{profile.bio}}</li>
     </ul>
 </div>
+{% if user.role == 'regular+' %}
+    <div class="dog-div">
+        <h2 class="123">Случайная фотография собачки</h2>
+        <div class="dog">
+            <img class="dog-img" src="{{dog}}">
+        </div>
+    </div>
+{% endif %}
+</div>
 {% endblock %}
 
 
