@@ -37,7 +37,11 @@
             </div>
             <div class="order-summ">
                 <div class="summ-header">Общая сумма заказа:</div>
-                <div class="summ">{{order.total_price}} ₽</div>
+                {% if user.role == 'regular++' %}
+                    <div class="summ"><del>{{order.total_price}} <b>₽</b></del> {{(order.total_price/100*90)|round|int}} <b>₽</b></div>
+                {% else %}
+                    <div class="summ">{{order.total_price}} <b>₽</b></div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
