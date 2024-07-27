@@ -10,6 +10,7 @@ from uuid import UUID
 
 from api.api_v1.order.crud import get_order_with_products_assoc
 from api.api_v1.profile.dependencies import profile_by_user_id
+from api.api_v1.trueorder.crud import get_order_by_user_id
 from api.api_v1.users.dependencies import user_by_id
 from auth.utils import decode_jwt
 
@@ -97,12 +98,20 @@ async def create_profile(req: Request):
 async def get_profile(req: Request, session=Depends(db_helper.session_getter)):
     profile = await profile_by_user_id(UUID(str(req.url)[30:]), session=session)
     user = await user_by_id(UUID(str(req.url)[30:]), session=session)
-    print(user.username)
     if req.cookies.get('access_token'):
         access_token = decode_jwt(req.cookies['access_token'])
         return dynamictemplates.TemplateResponse('profile.html', {"request": req, "profile": profile, "user": user, "access_token": access_token})
     else:
         return dynamictemplates.TemplateResponse('profile.html', {"request": req, "profile": profile, "user": user, "access_token": ''})
+
+
+@main_app.get('/edit_profile/{user_id}')
+async def get_profile(req: Request, session=Depends(db_helper.session_getter)):
+    profile = await profile_by_user_id(UUID(str(req.url)[35:]), session=session)
+    user = await user_by_id(UUID(str(req.url)[35:]), session=session)
+    if req.cookies.get('access_token'):
+        access_token = decode_jwt(req.cookies['access_token'])
+        return dynamictemplates.TemplateResponse('edit_profile.html', {"request": req, "profile": profile, "user": user, "access_token": access_token})
 
 
 @main_app.get('/cart')
