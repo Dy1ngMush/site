@@ -2,7 +2,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-possible_roles = ['regular', 'admin', 'superadmin']
+possible_roles = ['regular', 'regular+', 'regular++']
 
 class UserBase(BaseModel):
     username: str
