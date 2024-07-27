@@ -13,11 +13,13 @@
     <div class="cart">
         {% for product in cart.products_details %}
         <div class="cart-products">
+            <div class="cross">&#10006</div>
             <div class="cart-product">
                 <div class="cart-item-img">
                     <a href="/product/{{product.product.shortname}}"><img class="img-of-product" src="/static/{{product.product.shortname}}.png" alt="Product image"></a>
                 </div>
                 <div class="cart-item-info">
+                    <p class="hide">{{product.product.id}}</p>
                     <h3><a href="/product/{{product.product.shortname}}">{{product.product.name}}</a></h3>
                     <p>Количество: {{product.quantity}}</p>
                     <p>Цена: {{product.product.price*product.quantity}} <b>₽</b></p>

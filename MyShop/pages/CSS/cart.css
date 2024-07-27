@@ -68,3 +68,19 @@ main.dark-mode .button-order {
 #add-error.hide {
     display: none;
 }
+
+.cross {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cart-products {
+    position: relative;
+}
+
+p.hide {
+    display: none;
+}

@@ -1,6 +1,11 @@
 const addtoorder = document.getElementById('create-order');
 addtoorder.addEventListener('submit', addorder);
 
+const cross = document.querySelectorAll('.cross');
+cross.forEach(function(elem){
+    elem.addEventListener('click', deleteproduct);
+})
+
 async function addorder(event) {
     event.preventDefault();
     const add_error = document.getElementById('add-error')
@@ -18,4 +23,16 @@ async function addorder(event) {
     else{
     add_error.classList.remove('hide')
     }
+}
+
+async function deleteproduct(event){
+    event.preventDefault();
+    product_id = event.target.parentElement.querySelector('.hide').innerText
+    await fetch(`http://localhost:8000/api/v1/carts/delete_one_product/${product_id}`,
+    {
+        credentials: "same-origin",
+        method: 'DELETE',
+        headers: { "Content-Type": "application/json", "Authrorization": getCookie('access_token')},
+    })
+    location.reload()
 }
