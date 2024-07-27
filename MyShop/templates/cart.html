@@ -22,7 +22,12 @@
                     <p class="hide">{{product.product.id}}</p>
                     <h3><a href="/product/{{product.product.shortname}}">{{product.product.name}}</a></h3>
                     <p>Количество: {{product.quantity}}</p>
-                    <p>Цена: {{product.product.price*product.quantity}} <b>₽</b></p>
+                    {% if user.role == 'regular++' %}
+                        <div class="discount">Скидка пользователя++</div>
+                        <p>Цена: <del>{{product.product.price*product.quantity}} <b>₽</b></del> {{((product.product.price*product.quantity)/100*90)|round|int}} <b>₽</b></p>
+                    {% else %}
+                        <p>Цена: {{product.product.price*product.quantity}} <b>₽</b></p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -30,7 +35,15 @@
     </div>
     <div>
     <div class="cart-total">
-        <div>Общая цена: <label id="summ">{{sum}} <b>₽</b><label></div>
+        {% if sum != 0 %}
+            {% if user.role == 'regular++' %}
+                <div>Общая цена: <label id="summ"><del>{{sum}} <b>₽</b></del> {{((sum)/100*90)|round|int}}  <b>₽</b></label></div>
+            {% else %}
+            <div>Общая цена: <label id="summ">{{sum}} <b>₽</b></label></div>
+            {% endif %}
+        {% else %}
+            <div>Общая цена: <label id="summ">{{sum}} <b>₽</b></label></div>
+        {% endif %}
         <div>
             <form id="create-order">
                 <button type="submit" class="button-order">Оформить заказ</button>
