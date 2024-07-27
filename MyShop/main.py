@@ -117,6 +117,17 @@ async def get_cart(req: Request, session=Depends(db_helper.session_getter)):
     else:
         return dynamictemplates.TemplateResponse('nocart.html', {"request": req, "access_token": ''})
 
+
+@main_app.get('/orders/{user_id}')
+async def get_orders(req: Request, session=Depends(db_helper.session_getter)):
+    if req.cookies.get('access_token'):
+        access_token = decode_jwt(req.cookies['access_token'])
+        orders = await get_order_by_user_id(access_token['sub'], session)
+        return dynamictemplates.TemplateResponse('orders.html', {"request": req, "access_token": access_token, "orders": orders})
+    else:
+        return dynamictemplates.TemplateResponse('noorders.html', {"request": req, "access_token": ''})
+
+
 main_app.include_router(api_router)
 if __name__ == "__main__":
     uvicorn.run(
